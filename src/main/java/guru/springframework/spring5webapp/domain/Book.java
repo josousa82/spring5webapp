@@ -13,18 +13,18 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String title;
     private String isbn;
+
+    // many books to one publisher, note that in the class Publisher there's the opposite annotation on a set of books
+    @ManyToOne
+    private Publisher publisher;
 
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
-
-    // many books to one publisher, note that in the class Publisher there's the opposite annotation on a set of books
-    @ManyToOne
-    private Publisher publisher;
 
     public Book() {
     }
@@ -38,11 +38,11 @@ public class Book {
         return publisher;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -76,7 +76,11 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" + "id=" + id + ", title='" + title + '\'' + ", isbn='" + isbn + '\'' + ", authors=" + authors + '}';
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                '}';
     }
 
     @Override
@@ -86,11 +90,11 @@ public class Book {
 
         Book book = (Book) o;
 
-        return id == book.id;
+        return this.id == book.id;
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return id != null ? id.hashCode() : 0;
     }
 }

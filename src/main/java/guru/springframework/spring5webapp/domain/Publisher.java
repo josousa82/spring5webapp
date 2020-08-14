@@ -13,7 +13,7 @@ public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String name;
     private String addressLine1;
@@ -25,7 +25,7 @@ public class Publisher {
     // The joinColumn annotation  will create a column in BOOKS table with the publisher ID named publisher_id
     @OneToMany
     @JoinColumn(name = "publisher_id")
-    Set<Book> books = new HashSet<>();
+    private Set<Book> books = new HashSet<>();
 
     public Publisher() {}
 
@@ -37,11 +37,11 @@ public class Publisher {
         this.zip = zip;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -110,6 +110,6 @@ public class Publisher {
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return id != null? id.hashCode() : 0;
     }
 }

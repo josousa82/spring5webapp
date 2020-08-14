@@ -14,7 +14,7 @@ public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    private Long id;
     private String firstName;
     private String lastName;
 
@@ -30,11 +30,11 @@ public class Author {
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getFirstName() {
@@ -65,7 +65,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", books=" + books + '}';
+        return "Author{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''  + '}';
     }
 
     @Override
@@ -80,6 +80,6 @@ public class Author {
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return  id != null? id.hashCode() : 0;
     }
 }
